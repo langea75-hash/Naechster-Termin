@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Nächster Termin</string>
+    <string name="widget_description">Zeigt den nächsten Kalendereintrag mit Countdown.</string>
+</resources>
