@@ -50,9 +50,10 @@ public class NextEventWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_next_event);
 
         if (context.checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            views.setTextViewText(R.id.calendarMonth, "INFO");
+            views.setTextViewText(R.id.calendarDay, "!");
             views.setTextViewText(R.id.eventTitle, "Kalenderzugriff fehlt");
             views.setTextViewText(R.id.eventDate, "App öffnen und Zugriff erlauben");
-            views.setViewVisibility(R.id.remaining, View.GONE);
             views.setViewVisibility(R.id.countdown, View.GONE);
             views.setViewVisibility(R.id.location, View.GONE);
             views.setOnClickPendingIntent(R.id.widgetRoot, openAppIntent(context));
@@ -63,9 +64,10 @@ public class NextEventWidgetProvider extends AppWidgetProvider {
         EventInfo event = findNextEvent(context);
 
         if (event == null) {
+            views.setTextViewText(R.id.calendarMonth, "---");
+            views.setTextViewText(R.id.calendarDay, "—");
             views.setTextViewText(R.id.eventTitle, "Kein nächster Termin");
             views.setTextViewText(R.id.eventDate, "In den nächsten 30 Tagen nichts gefunden");
-            views.setViewVisibility(R.id.remaining, View.GONE);
             views.setViewVisibility(R.id.countdown, View.GONE);
             views.setViewVisibility(R.id.location, View.GONE);
             views.setOnClickPendingIntent(R.id.widgetRoot, openAppIntent(context));
@@ -75,17 +77,14 @@ public class NextEventWidgetProvider extends AppWidgetProvider {
 
         long now = System.currentTimeMillis();
         long diff = Math.max(0L, event.startMillis - now);
-        long totalMinutes = diff / 60000L;
-        long hours = totalMinutes / 60L;
-        long minutes = totalMinutes % 60L;
 
+        views.setTextViewText(R.id.calendarMonth, formatMonth(event.startMillis));
+        views.setTextViewText(R.id.calendarDay, formatDay(event.startMillis));
         views.setTextViewText(R.id.eventTitle, event.title);
         views.setTextViewText(R.id.eventDate, formatDate(event.startMillis, event.allDay));
-        views.setTextViewText(R.id.remaining, "⏳ Noch " + hours + " Std. " + minutes + " Minuten");
-        views.setViewVisibility(R.id.remaining, View.VISIBLE);
 
         long chronometerBase = SystemClock.elapsedRealtime() + diff;
-        views.setChronometer(R.id.countdown, chronometerBase, "Countdown: %s", true);
+        views.setChronometer(R.id.countdown, chronometerBase, "⏳ Noch %s", true);
         views.setChronometerCountDown(R.id.countdown, true);
         views.setViewVisibility(R.id.countdown, View.VISIBLE);
 
@@ -147,9 +146,20 @@ public class NextEventWidgetProvider extends AppWidgetProvider {
 
     private static String formatDate(long millis, boolean allDay) {
         SimpleDateFormat format = new SimpleDateFormat(
-                allDay ? "EEEE, dd.MM.yyyy" : "EEEE, dd.MM.yyyy, HH:mm",
+                allDay ? "EEEE · dd.MM.yyyy" : "EEEE · dd.MM.yyyy · HH:mm",
                 Locale.GERMANY);
         return format.format(new Date(millis));
+    }
+
+    private static String formatMonth(long millis) {
+        return new SimpleDateFormat("MMM", Locale.GERMANY)
+                .format(new Date(millis))
+                .replace(".", "")
+                .toUpperCase(Locale.GERMANY);
+    }
+
+    private static String formatDay(long millis) {
+        return new SimpleDateFormat("dd", Locale.GERMANY).format(new Date(millis));
     }
 
     private static PendingIntent openAppIntent(Context context) {
