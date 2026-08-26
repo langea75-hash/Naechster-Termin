@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
-git add app/src/main/res/drawable/calendar_badge_background.xml         app/src/main/res/drawable/calendar_month_background.xml         app/src/main/res/drawable/countdown_background.xml
-git commit -m "Fehlende Widget-Hintergruende hinzugefuegt" || true
+
+git add app/src/main/res/layout/widget_next_event.xml         app/src/main/java/de/andreas/naechstertermin/NextEventWidgetProvider.java
+
+git commit -m "Widget kompakt mit mehr Termindetails" || true
 git push
+
 echo "FERTIG"
