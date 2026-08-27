@@ -5,65 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:padding="13dp"
+    android:padding="12dp"
     android:background="@drawable/widget_background">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="48dp"
-            android:layout_height="52dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/calendar_badge_background">
-
-            <TextView
-                android:id="@+id/calendarMonth"
-                android:layout_width="match_parent"
-                android:layout_height="19dp"
-                android:gravity="center"
-                android:background="@drawable/calendar_month_background"
-                android:text="AUG"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/calendarDay"
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:gravity="center"
-                android:text="26"
-                android:textColor="#111827"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:text="Nächster Termin"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#111827"
-            android:maxLines="1"
-            android:ellipsize="end" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/eventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
         android:text="Termin"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:maxLines="2"
         android:ellipsize="end"
         android:textColor="#111827" />
@@ -73,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:textSize="14sp"
-        android:maxLines="1"
+        android:textSize="12sp"
+        android:maxLines="2"
         android:ellipsize="end"
         android:textColor="#4B5563" />
 
@@ -82,23 +33,33 @@
         android:id="@+id/countdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="9dp"
-        android:paddingTop="7dp"
-        android:paddingRight="9dp"
-        android:paddingBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="6dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="6dp"
         android:background="@drawable/countdown_background"
         android:textStyle="bold"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:textColor="#111827" />
 
     <TextView
         android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:textSize="12sp"
-        android:maxLines="1"
+        android:layout_marginTop="6dp"
+        android:textSize="11sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="#5B6472" />
+
+    <TextView
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="11sp"
+        android:maxLines="3"
         android:ellipsize="end"
         android:textColor="#6B7280" />
 
